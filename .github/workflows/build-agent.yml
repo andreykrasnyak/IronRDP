@@ -1,0 +1,20 @@
+name: Build IronRDP Agent
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build
+        run: cargo build -p ironrdp-agent --release
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v7
+        with:
+          name: ironrdp-agent-windows-x64
+          path: target/release/ironrdp-agent.exe
